@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'core/theme/warm_theme.dart';
+import 'features/security/lock_gate.dart';
 import 'features/shell/home_shell.dart';
 
 class PeriodCalendarApp extends StatelessWidget {
@@ -13,7 +14,7 @@ class PeriodCalendarApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: WarmTheme.light(),
       darkTheme: WarmTheme.dark(),
-      home: const HomeShell(),
+      home: const PrivacyOverlay(child: LockGate(child: HomeShell())),
     );
   }
 }

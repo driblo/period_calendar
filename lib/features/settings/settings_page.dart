@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/widgets/warm_card.dart';
 import '../reminders/reminders_settings_page.dart';
+import '../security/security_settings_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -23,6 +24,19 @@ class SettingsPage extends StatelessWidget {
               icon: Icons.notifications_outlined,
               title: 'Reminders',
               subtitle: 'Notifications for period, logging, pills',
+            ),
+          ),
+          const SizedBox(height: 12),
+          WarmCard(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const SecuritySettingsPage(),
+              ),
+            ),
+            child: const _Row(
+              icon: Icons.lock_outline,
+              title: 'Privacy & security',
+              subtitle: 'PIN, biometric, export, delete data',
             ),
           ),
         ],

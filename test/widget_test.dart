@@ -5,6 +5,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:period_calendar/app.dart';
 import 'package:period_calendar/data/db/app_database.dart';
 import 'package:period_calendar/features/calendar/calendar_providers.dart';
+import 'package:period_calendar/features/security/lock_controller.dart';
+
+class _NoopLockController extends LockController {
+  _NoopLockController() : super();
+  @override
+  Future<void> load() async {}
+}
 
 void main() {
   testWidgets('calendar page renders prediction with empty cycle history', (
@@ -14,6 +21,7 @@ void main() {
       ProviderScope(
         overrides: [
           cyclesProvider.overrideWith((ref) => Stream.value(<Cycle>[])),
+          lockControllerProvider.overrideWith((ref) => _NoopLockController()),
         ],
         child: const PeriodCalendarApp(),
       ),
