@@ -34,7 +34,15 @@ jobs:
         run: flutter analyze
 
       - name: Test
-        run: flutter test --no-pub --reporter expanded
+        run: flutter test --no-pub --reporter expanded --coverage
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+          if-no-files-found: ignore
 
   build-android:
     name: Build Android (debug)
