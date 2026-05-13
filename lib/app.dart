@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'core/theme/warm_theme.dart';
-import 'features/calendar/calendar_page.dart';
+import 'features/shell/home_shell.dart';
 
 class PeriodCalendarApp extends StatelessWidget {
   const PeriodCalendarApp({super.key});
@@ -13,7 +13,7 @@ class PeriodCalendarApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: WarmTheme.light(),
       darkTheme: WarmTheme.dark(),
-      home: const CalendarPage(),
+      home: const HomeShell(),
     );
   }
 }

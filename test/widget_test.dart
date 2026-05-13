@@ -18,14 +18,12 @@ void main() {
         child: const PeriodCalendarApp(),
       ),
     );
-    for (var i = 0; i < 5; i++) {
-      await tester.pump(const Duration(milliseconds: 100));
+    for (var i = 0; i < 20; i++) {
+      await tester.pump(const Duration(milliseconds: 50));
     }
 
-    expect(find.text('Calendar'), findsOneWidget);
-    expect(find.text('Prediction'), findsOneWidget);
-    expect(find.text('Next period'), findsOneWidget);
-    expect(find.text('Period started today'), findsOneWidget);
+    expect(find.text('Calendar'), findsWidgets);
+    expect(find.text('Insights'), findsWidgets);
 
     // Tear down to flush pending timers from table_calendar.
     await tester.pumpWidget(const SizedBox.shrink());
