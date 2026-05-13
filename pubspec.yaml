@@ -27,7 +27,6 @@ dependencies:
   # UI
   table_calendar: ^3.1.2
   fl_chart: ^0.69.2
-  google_fonts: ^6.2.1
 
   # Platform integrations
   flutter_local_notifications: ^18.0.1
