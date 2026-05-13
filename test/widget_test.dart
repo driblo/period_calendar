@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:period_calendar/app.dart';
 import 'package:period_calendar/data/db/app_database.dart';
@@ -17,6 +18,7 @@ void main() {
   testWidgets('calendar page renders prediction with empty cycle history', (
     tester,
   ) async {
+    SharedPreferences.setMockInitialValues({'onboarded_v1': true});
     await tester.pumpWidget(
       ProviderScope(
         overrides: [

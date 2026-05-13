@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -180,6 +181,7 @@ class _CalendarPageState extends ConsumerState<CalendarPage> {
     final today = DateTime.now();
     final messenger = ScaffoldMessenger.of(context);
 
+    await HapticFeedback.mediumImpact();
     if (cycles.isEmpty || cycles.last.endDate != null) {
       await repo.startCycle(today);
       messenger.showSnackBar(
