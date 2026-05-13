@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../calendar/calendar_page.dart';
 import '../insights/insights_page.dart';
+import '../settings/settings_page.dart';
 
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
@@ -13,7 +14,11 @@ class HomeShell extends StatefulWidget {
 class _HomeShellState extends State<HomeShell> {
   int _index = 0;
 
-  static const _pages = <Widget>[CalendarPage(), InsightsPage()];
+  static const _pages = <Widget>[
+    CalendarPage(),
+    InsightsPage(),
+    SettingsPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +37,11 @@ class _HomeShellState extends State<HomeShell> {
             icon: Icon(Icons.insights_outlined),
             selectedIcon: Icon(Icons.insights),
             label: 'Insights',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.settings_outlined),
+            selectedIcon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
       ),
