@@ -39,7 +39,7 @@ class WarmTheme {
           fontWeight: FontWeight.w700,
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: scheme.surfaceContainerHighest,
         elevation: 0,
         margin: EdgeInsets.zero,

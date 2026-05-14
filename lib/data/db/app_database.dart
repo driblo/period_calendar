@@ -38,28 +38,32 @@ class AppDatabase extends _$AppDatabase {
 }
 
 /// Opens the encrypted on-device DB using [encryptionKey].
-///
-/// The key is supplied via [SqlCipherKeyProvider] — typically read from
-/// secure storage and generated on first launch.
 Future<AppDatabase> openEncryptedDatabase(String encryptionKey) async {
   final dir = await getApplicationDocumentsDirectory();
   final dbFile = File(p.join(dir.path, 'period_calendar.db'));
 
-  // Ensure SQLCipher native libs are loaded before any sqlite3 use.
+  // Override in the main isolate for any non-background sqlite3 use.
   await applyWorkaroundToOpenSqlCipherOnOldAndroidVersions();
   open.overrideFor(OperatingSystem.android, openCipherOnAndroid);
   open.overrideFor(OperatingSystem.iOS, () => DynamicLibrary.process());
 
   final executor = NativeDatabase.createInBackground(
     dbFile,
+    // Re-apply the override inside the background isolate — it doesn't
+    // inherit the main-isolate override and would otherwise try libsqlite3.so.
+    isolateSetup: _sqlCipherIsolateSetup,
     setup: (db) {
-      // Apply the key BEFORE any other statement.
       db.execute("PRAGMA key = '${_escape(encryptionKey)}';");
-      // Sanity check: confirm the DB is readable with the key.
       db.execute('PRAGMA cipher_compatibility = 4;');
     },
   );
   return AppDatabase(executor);
+}
+
+Future<void> _sqlCipherIsolateSetup() async {
+  await applyWorkaroundToOpenSqlCipherOnOldAndroidVersions();
+  open.overrideFor(OperatingSystem.android, openCipherOnAndroid);
+  open.overrideFor(OperatingSystem.iOS, () => DynamicLibrary.process());
 }
 
 String _escape(String s) => s.replaceAll("'", "''");
